@@ -1,0 +1,39 @@
+name: PuddleChess
+options:
+  bundleIdPrefix: net.gapul
+  deploymentTarget:
+    macOS: "15.2"
+  createIntermediateGroups: true
+
+packages:
+  ChessKit:
+    url: https://github.com/chesskit-app/chesskit-swift
+    minVersion: 0.17.0
+    maxVersion: 0.18.0
+
+targets:
+  PuddleChess:
+    type: bundle
+    platform: macOS
+    sources:
+      - path: Source
+      - path: Resources
+        excludes:
+          - "**/.git/**"
+    dependencies:
+      - package: ChessKit
+    info:
+      path: Source/Info.plist
+      properties:
+        # How Puddle finds the class to instantiate.
+        NSPrincipalClass: ChessPlugin
+        CFBundleName: PuddleChess
+        CFBundlePackageType: BNDL
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: net.gapul.PuddleChess
+        WRAPPER_EXTENSION: bundle
+        SWIFT_VERSION: "6.0"
+        # The bundle is loaded into Puddle; it must not carry its own copy of the Swift runtime.
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: NO
+        CODE_SIGN_STYLE: Automatic

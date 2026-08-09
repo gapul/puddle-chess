@@ -1,0 +1,4 @@
+build/
+# Generated from project.yml by xcodegen.
+PuddleChess.xcodeproj/
+.DS_Store
