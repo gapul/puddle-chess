@@ -29,6 +29,17 @@ targets:
         NSPrincipalClass: ChessPlugin
         CFBundleName: PuddleChess
         CFBundlePackageType: BNDL
+        # What the option string takes, so Puddle's editor can offer it instead of a text field.
+        # Puddle reads this as data and still passes the string through untouched.
+        PuddleOptions:
+          - key: mode
+            title: Mode
+            default: play
+            values: [play, watch]
+            titles: [Play against the engine, Watch the engine play itself]
+          - key: engine
+            title: Stockfish
+            default: ""
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: net.gapul.PuddleChess

@@ -9,18 +9,36 @@ plays the other side, or both. Puddle sits at desktop level and gets no clicks, 
 playable while Browsing Mode is on. Outside a move the render loop is off entirely: a still
 board costs nothing.
 
-## Build and install
+## Install
+
+```console
+$ open -g 'puddle:install?url=https://github.com/gapul/puddle-chess/releases/latest/download/puddle-chess.zip'
+```
+
+That needs this repository in Puddle's `~/.config/puddle/install.toml`, because a plugin is
+native code and Puddle takes native code only from a source that was trusted in advance:
+
+```toml
+allow = [
+    "https://github.com/gapul/puddle-chess/releases/",
+]
+```
+
+Otherwise: **Add Wallpaper → Plugin…** and pick a bundle from disk.
+
+Puddle needs `com.apple.security.cs.disable-library-validation` to load a bundle it did not
+sign — it has it.
+
+## Build
 
 ```console
 $ xcodegen generate
 $ xcodebuild -project PuddleChess.xcodeproj -scheme PuddleChess -configuration Release -derivedDataPath build build
-$ cp -R build/Build/Products/Release/PuddleChess.bundle ~/tmp/puddle-plugins/
+$ ./tools/release.sh 1.0.0
 ```
 
-Then in Puddle: **Add Wallpaper → Plugin…**, and pick the bundle.
-
-Puddle needs `com.apple.security.cs.disable-library-validation` to load a bundle it did not
-sign — it has it.
+`release.sh` signs the bundle, zips it, and publishes it with the catalog file, which is what the
+install line above downloads.
 
 ## Options
 
@@ -31,6 +49,10 @@ Puddle passes the wallpaper's option string through untouched. It is space-separ
 |---|---|---|
 | `mode` | `play` (default), `watch` | `play`: you are white, the engine answers as black. `watch`: the engine plays both sides and starts a new game a few seconds after each one ends. |
 | `engine` | a path | Where Stockfish is, when it is somewhere the search would not look. |
+
+The bundle's `Info.plist` also declares these two under `PuddleOptions`, so Puddle's editor shows
+`mode` as a menu and `engine` as a field of its own instead of one box holding the whole string.
+The string is still the interface; the declaration only says what goes in it.
 
 ```
 mode=watch

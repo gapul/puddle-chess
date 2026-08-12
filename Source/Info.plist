@@ -18,5 +18,34 @@
 	<string>1</string>
 	<key>NSPrincipalClass</key>
 	<string>ChessPlugin</string>
+	<key>PuddleOptions</key>
+	<array>
+		<dict>
+			<key>default</key>
+			<string>play</string>
+			<key>key</key>
+			<string>mode</string>
+			<key>title</key>
+			<string>Mode</string>
+			<key>titles</key>
+			<array>
+				<string>Play against the engine</string>
+				<string>Watch the engine play itself</string>
+			</array>
+			<key>values</key>
+			<array>
+				<string>play</string>
+				<string>watch</string>
+			</array>
+		</dict>
+		<dict>
+			<key>default</key>
+			<string></string>
+			<key>key</key>
+			<string>engine</string>
+			<key>title</key>
+			<string>Stockfish</string>
+		</dict>
+	</array>
 </dict>
 </plist>
