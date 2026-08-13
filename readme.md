@@ -1,5 +1,7 @@
 # puddle-chess
 
+![The board on the desktop](docs/preview.jpg)
+
 A playable 3D chess set as a wallpaper. It is a plugin for
 [Puddle](https://github.com/gapul/Puddle): one `.bundle` that Puddle loads and shows, and that
 Puddle otherwise knows nothing about.
@@ -39,6 +41,18 @@ $ ./tools/release.sh 1.0.0
 
 `release.sh` signs the bundle, zips it, and publishes it with the catalog file, which is what the
 install line above downloads.
+
+The picture in the catalog is a photograph of the thing running:
+
+```console
+$ swiftc -O -o /tmp/capture-preview tools/capture-preview/main.swift
+$ /tmp/capture-preview docs/preview.jpg
+```
+
+It captures Puddle's wallpaper window through ScreenCaptureKit and crops to the board. A
+window-id capture (`screencapture -l`) is no use — it does not see the layers SceneKit draws
+into and comes back white — and a screenshot of the whole display has everything stacked on top
+of the wallpaper in it.
 
 ## Options
 

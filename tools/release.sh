@@ -49,7 +49,9 @@ cat > dist/index.json <<JSON
       "name": "Chess",
       "description": "A playable 3D chess set. Click a piece and its legal squares light up, or let Stockfish play both sides.",
       "author": "gapul",
-      "url": "https://github.com/$REPOSITORY/releases/latest/download/puddle-chess.zip"
+      "kind": "plugin",
+      "url": "https://github.com/$REPOSITORY/releases/latest/download/puddle-chess.zip",
+      "preview": "https://github.com/$REPOSITORY/releases/latest/download/preview.jpg"
     }
   ]
 }
@@ -63,6 +65,6 @@ gh release create "v$VERSION" \
 Install (needs \`https://github.com/$REPOSITORY/releases/\` in \`~/.config/puddle/install.toml\`):
 
     open -g 'puddle:install?url=https://github.com/$REPOSITORY/releases/latest/download/puddle-chess.zip'" \
-	dist/puddle-chess.zip dist/index.json
+	dist/puddle-chess.zip dist/index.json docs/preview.jpg
 
 echo "released v$VERSION"
