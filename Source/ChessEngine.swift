@@ -56,11 +56,16 @@ final class ChessEngine {
 		}
 
 		output.fileHandleForReading.readabilityHandler = { [weak self] handle in
-			let text = String(decoding: handle.availableData, as: UTF8.self)
+			let data = handle.availableData
 
-			guard !text.isEmpty else {
+			// Empty data is EOF: the engine has exited. The handler keeps firing on a closed pipe, so it
+			// has to be removed here or it spins a core for the rest of Puddle's life.
+			guard !data.isEmpty else {
+				handle.readabilityHandler = nil
 				return
 			}
+
+			let text = String(decoding: data, as: UTF8.self)
 
 			Task { @MainActor in
 				self?.receive(text)
@@ -77,6 +82,7 @@ final class ChessEngine {
 	}
 
 	deinit {
+		output.fileHandleForReading.readabilityHandler = nil
 		process.terminationHandler = nil
 		process.terminate()
 	}
